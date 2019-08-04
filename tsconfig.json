@@ -10,14 +10,15 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "types": [
       "webpack-env"
     ],
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": [ "./*" ],
+      "@components/*": [ "./components/*" ],
+      "@styles/*": [ "./styles/*" ],
+      "@assets/*": [ "./assets/*" ]
     },
     "lib": [
       "esnext",

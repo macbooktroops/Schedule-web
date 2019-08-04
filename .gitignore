@@ -22,4 +22,4 @@ yarn-error.log*
 *.sw?
 
 # yarn
-/yarn.lock
+yarn.lock

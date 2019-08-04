@@ -29,7 +29,8 @@ const pages = (() => {
         entry: path.resolve(__dirname, 'temp', tsFilename), // 메인으로 볼거
         template: path.resolve(__dirname, 'src/templates/index.html'),  // 탬플릿 html 파일
         filename: `${basename}.html`, // 컴파일 파일명
-        title: basename // 타이틀 
+        title: basename, // 타이틀
+        chunks: ['chunk-vendors', 'chunk-common', basename]
       }
     });
   });
@@ -46,11 +47,31 @@ module.exports = () => {
     pages,  // 다중페이지 지원 설정
     chainWebpack: config => {
       config.resolve.alias.set('@', path.resolve(__dirname, 'src'));  // 메인
-      config.resolve.alias.set('@Components', path.resolve(__dirname, 'src/components')); // 컴포넌트
+      config.resolve.alias.set('@components', path.resolve(__dirname, 'src/components')); // 컴포넌트
       config.resolve.alias.set('@styles', path.resolve(__dirname, 'src/styles')); // 스타일파일
       config.resolve.alias.set('@assets', path.resolve(__dirname, 'src/assets')); // 리소스파일
-      
       // config.resolve.extensions.push('', '.vue', '.ts');
+      // 공통으로 사용하는 라이브러리를 외부 파일로 분리
+      config.optimization.splitChunks({
+        cacheGroups: {
+          default: false,
+          vendors: {
+            name: "chunk-vendors",
+            priority: -11,
+            chunks: "all",
+            test: /[\\/]node_modules[\\/]/,
+            enforce: true
+          },
+          common: {
+            name: "chunk-common",
+            priority: -20,
+            chunks: "all",
+            minChunks: 2,
+            reuseExistingChunk: true,
+            enforce: true
+          }
+        }
+      });
     },
     /*
      * contentBase {string} dev서버 컨테이너 위치
@@ -65,6 +86,7 @@ module.exports = () => {
       compress: true,
       host: '0.0.0.0',
       port: 9000,
+      index: 'login.html',
       historyApiFallback: true
     },
 
