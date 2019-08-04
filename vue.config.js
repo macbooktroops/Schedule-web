@@ -1,11 +1,40 @@
 'use strict'
 const path = require('path');
+const fs = require('fs');
+const glob = require('glob');
 
 /*
  *  다중 페이지 처리
  */
 const pages = (() => {
+  const pages = glob.sync(path.resolve(__dirname, 'src/pages/**/*.vue'));
+  const tsTemplate = fs.readFileSync(path.resolve(__dirname, 'src/templates/loader.ts'), "utf8");
+  
+  if(!fs.existsSync(path.resolve(__dirname, 'temp'))) {
+    fs.mkdirSync(path.resolve(__dirname, 'temp'));
+  }
+  
+  const endpages = {};
+  pages.map(page => {
+    const dir = path.dirname(page);
+    const basename = path.basename(dir)
+    const filename = path.basename(page);
+    const tsFilename = filename.replace('vue', 'ts');
 
+    const _ts = tsTemplate.replace('#PagePath', `@/pages/${basename}/${filename}`);
+    fs.writeFileSync(path.resolve(__dirname, 'temp', tsFilename), _ts);
+
+    Object.assign(endpages, {
+      [basename]: {
+        entry: path.resolve(__dirname, 'temp', tsFilename), // 메인으로 볼거
+        template: path.resolve(__dirname, 'src/templates/index.html'),  // 탬플릿 html 파일
+        filename: `${basename}.html`, // 컴파일 파일명
+        title: basename // 타이틀 
+      }
+    });
+  });
+
+  return endpages;
 })();
 
 module.exports = () => {
@@ -14,8 +43,14 @@ module.exports = () => {
   const config = {
     publicPath, // base url 설정
     filenameHashing: false, // 컴파일된 파일명에 해쉬 추가 여부
-    // pages,  // 다중페이지 지원 설정
+    pages,  // 다중페이지 지원 설정
     chainWebpack: config => {
+      config.resolve.alias.set('@', path.resolve(__dirname, 'src'));  // 메인
+      config.resolve.alias.set('@Components', path.resolve(__dirname, 'src/components')); // 컴포넌트
+      config.resolve.alias.set('@styles', path.resolve(__dirname, 'src/styles')); // 스타일파일
+      config.resolve.alias.set('@assets', path.resolve(__dirname, 'src/assets')); // 리소스파일
+      
+      // config.resolve.extensions.push('', '.vue', '.ts');
     },
     /*
      * contentBase {string} dev서버 컨테이너 위치
@@ -37,12 +72,13 @@ module.exports = () => {
      * css 설정
      */
     css: {
-      module: true,
+      // module: true,
       loaderOptions: {
         sass: { // 전역 scss 파일 지정
-          data:
-            `@import '@/styles/_variables.scss';`
-            `@import '@/styles/_mixins.scss';`
+          data: `
+            @import '@/styles/_variables.scss';
+            @import '@/styles/_mixins.scss';
+            `
         }
       }
     }
