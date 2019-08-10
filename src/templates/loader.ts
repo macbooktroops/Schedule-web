@@ -1,9 +1,6 @@
-import Vue from "vue";
+import { LoadPage } from "@Libs/PageLoader";
 // @ts-ignore
 import Page from "#PagePath";
 
-Vue.config.productionTip = false;
-
-new Vue({
-	render: (h) => h(Page),
-}).$mount("#app");
+console.log(Page);
+LoadPage(Page);

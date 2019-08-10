@@ -17,6 +17,9 @@
 		"no-consecutive-blank-lines": false,
 		"max-line-length": false,
 		"only-arrow-functions": false,
-		"trailing-comma": false
+		"trailing-comma": false,
+		"eofline": false,
+		"curly": false,
+		"no-console": [true, "warning"]
 	}
 }

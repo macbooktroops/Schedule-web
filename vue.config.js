@@ -8,8 +8,8 @@ const glob = require('glob');
  */
 const pages = (() => {
 	const endpages = {};
-	const pages = glob.sync(path.resolve(__dirname, 'src/pages/**/*.vue'));
-	const tsTemplate = fs.readFileSync(path.resolve(__dirname, 'src/templates/loader.ts'), "utf8");
+	const pages = glob.sync(path.resolve(__dirname, 'src/Pages/**/*.vue'));
+	const tsTemplate = fs.readFileSync(path.resolve(__dirname, 'src/Templates/loader.ts'), "utf8");
 	
 	if(!fs.existsSync(path.resolve(__dirname, 'temp'))) {
 		fs.mkdirSync(path.resolve(__dirname, 'temp'));
@@ -21,13 +21,13 @@ const pages = (() => {
 		const filename = path.basename(page);
 		const tsFilename = filename.replace('vue', 'ts');
 
-		const _ts = tsTemplate.replace('#PagePath', `@/pages/${basename}/${filename}`);
+		const _ts = tsTemplate.replace('#PagePath', `@/Pages/${basename}/${filename}`);
 		fs.writeFileSync(path.resolve(__dirname, 'temp', tsFilename), _ts);
 
 		Object.assign(endpages, {
 			[basename]: {
 				entry: path.resolve(__dirname, 'temp', tsFilename), // 메인으로 볼거
-				template: path.resolve(__dirname, 'src/templates/index.html'),	// 탬플릿 html 파일
+				template: path.resolve(__dirname, 'src/Templates/index.html'),	// 탬플릿 html 파일
 				filename: `${basename}.html`, // 컴파일 파일명
 				title: basename, // 타이틀
 				chunks: ['chunk-vendors', 'chunk-common', basename]
