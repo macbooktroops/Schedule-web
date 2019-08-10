@@ -1,42 +1,55 @@
 {
-  "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "strict": true,
-    "jsx": "preserve",
-    "importHelpers": true,
-    "moduleResolution": "node",
-    "experimentalDecorators": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
-    "baseUrl": "./src",
-    "types": [
-      "webpack-env"
-    ],
-    "paths": {
-      "@/*": [ "./*" ],
-      "@Components/*": [ "./Components/*" ],
-      "@Defines/*": ["./Defines/*"],
-      "@Libs/*": [ "./Libs/*" ],
-      "@Resources/*": [ "./Resources/*" ],
-      "@Styles/*": [ "./Styles/*" ]
-    },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ]
-  },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "tests/**/*.ts",
-    "tests/**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+	"compilerOptions": {
+		"target": "es5",
+		"module": "es2015",
+		"moduleResolution": "node",
+		"jsx": "preserve",
+    
+		"strict": true,
+		"importHelpers": true,
+		
+		"esModuleInterop": true,
+		// Include modules imported with .json extension.
+		"resolveJsonModule": true,
+		"experimentalDecorators": true,
+		
+		// Remove all comments except copy-right header comments beginning with 
+		"removeComments": true,
+		// o not erase const enum declarations in generated code. See const enums documentation for more details.
+		"preserveConstEnums": true,
+		"allowSyntheticDefaultImports": true,
+		"sourceMap": true,
+		// Generates corresponding .d.ts file.
+		"declaration": true,
+		
+		"baseUrl": "./src",
+		"types": [
+			"webpack-env",
+			"jquery"
+		],
+		"paths": {
+			"@/*": [ "./*" ],
+			"@Components/*": [ "./Components/*" ],
+			"@Defines/*": ["./Defines/*"],
+			"@Libs/*": [ "./Libs/*" ],
+			"@Resources/*": [ "./Resources/*" ],
+			"@Styles/*": [ "./Styles/*" ]
+		},
+		"lib": [
+			"esnext",
+			"dom",
+			"dom.iterable",
+			"scripthost"
+		]
+	},
+	"include": [
+		"src/**/*.ts",
+		"src/**/*.tsx",
+		"src/**/*.vue",
+		"tests/**/*.ts",
+		"tests/**/*.tsx"
+	],
+	"exclude": [
+		"node_modules"
+	]
 }

@@ -1,4 +1,4 @@
 <template>
-  <div class="login">
-  </div>
+	<div class="login">
+	</div>
 </template>

@@ -1,14 +1,14 @@
 <!-- 버튼 기본 스타일 -->
 <template>
-  <button
-    type="button"
-    class="design-button"
-    :id="Id"
-    :name="Name"
-    v-bind:value="Value"
-  >
-  {{Content}}
-  </button>
+	<button
+		type="button"
+		class="design-button"
+		:id="Id"
+		:name="Name"
+		v-bind:value="Value"
+	>
+	{{Content}}
+	</button>
 </template>
 
 <style lang="scss">
@@ -19,36 +19,37 @@
 
 <script type="ts">
 import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
+import Component from "vue-class-component";
+import { Prop } from "vue-property-decorator";
 
 @Component
 export default class DesignButton extends Vue {
-  /** input 태그의 `Id` 프로퍼티와 연동되는 값입니다. */
-  @Prop({
-    type: String,
-    default: undefined
-  })
-  protected Id?: string;
+	/** input 태그의 `Id` 프로퍼티와 연동되는 값입니다. */
+	@Prop({
+		type: String,
+		default: undefined
+	})
+	protected Id?: string;
 
-  /** input 태그의 `Name` 프로퍼티와 연동되는 값입니다. */
-  @Prop({
-    type: String,
-    default: undefined
-  })
-  protected Name?: string;
+	/** input 태그의 `Name` 프로퍼티와 연동되는 값입니다. */
+	@Prop({
+		type: String,
+		default: undefined
+	})
+	protected Name?: string;
 
-  /** input 태그의 `Value` 프로퍼티와 연동되는 값입니다. */
-  @Prop({
-    type: String,
-    default: undefined
-  })
-  protected Value?: string;
+	/** input 태그의 `Value` 프로퍼티와 연동되는 값입니다. */
+	@Prop({
+		type: String,
+		default: undefined
+	})
+	protected Value?: string;
 
-  /** input 태그의 `Content` 프로퍼티와 연동되는 값입니다. */
-  @Prop({
-    type: String,
-    default: ""
-  })
-  protected Content?: string;
+	/** input 태그의 `Content` 프로퍼티와 연동되는 값입니다. */
+	@Prop({
+		type: String,
+		default: ""
+	})
+	protected Content?: string;
 }
 </script>
