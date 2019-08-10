@@ -1,9 +1,9 @@
 import Vue from 'vue';
 // @ts-ignore
-import App from '#PagePath';
+import Page from '#PagePath';
 
 Vue.config.productionTip = false;
 
 new Vue({
-  render: (h) => h(App),
+  render: (h) => h(Page),
 }).$mount('#app');

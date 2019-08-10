@@ -16,9 +16,11 @@
     ],
     "paths": {
       "@/*": [ "./*" ],
-      "@components/*": [ "./components/*" ],
-      "@styles/*": [ "./styles/*" ],
-      "@assets/*": [ "./assets/*" ]
+      "@Components/*": [ "./Components/*" ],
+      "@Defines/*": ["./Defines/*"],
+      "@Libs/*": [ "./Libs/*" ],
+      "@Resources/*": [ "./Resources/*" ],
+      "@Styles/*": [ "./Styles/*" ]
     },
     "lib": [
       "esnext",
