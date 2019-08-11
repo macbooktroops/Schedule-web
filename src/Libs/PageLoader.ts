@@ -1,4 +1,5 @@
-import Vue, { VueConstructor } from "vue";
+import Vue from "vue";
+import Vuex from "vuex";
 import VueRouter from "vue-router";
 import $ from "jquery";
 
@@ -13,6 +14,7 @@ export const LoadPage = (routes: GlobalRouteInterface[]): void => {
 	target = $("<div/>").appendTo($("body"));
 
 	Vue.use(VueRouter);
+	Vue.use(Vuex);
 
 	LoadComponents(Vue);
 
@@ -28,8 +30,15 @@ export const LoadPage = (routes: GlobalRouteInterface[]): void => {
 		console.log("[DEBUG]Router BeforeEash from: ", from);
 		next();
 	});
+
+	// store 설정
+	const store = new Vuex.Store({
+		strict: true
+	});
+
 	new Vue({
 		render: (h) => h(App),
-		router
+		router,
+		store
 	}).$mount(target.get(0));
 };
