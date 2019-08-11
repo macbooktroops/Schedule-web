@@ -1,12 +1,12 @@
 <template>
-	<div class="page-login">
-		<label for="test">login</label>
+	<div class="page-join">
+		<label for="test">join</label>
 		<DesignInput id="test" name="test" value="tq" />
 	</div>
 </template>
 
 <style lang="scss">
-.page-login {	}
+.page-join {	}
 </style>
 
 <script lang="ts">

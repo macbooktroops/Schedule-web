@@ -1,6 +1,6 @@
+// @ts-ignore
 import { LoadPage } from "@Libs/PageLoader";
 // @ts-ignore
-import Page from "#PagePath";
+import { Routes } from "#RoutesPath";
 
-console.log(Page);
-LoadPage(Page);
+LoadPage(Routes);
