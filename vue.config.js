@@ -2,13 +2,14 @@
 const path = require("path");
 const fs = require("fs");
 const glob = require("glob");
+const os=require('os');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 /*
  *	다중 페이지 처리
  */
 const pages = (() => {
 	const endpages = {};
-	// const pages = glob.sync(path.resolve(__dirname, "src/Pages/**/*.vue"));
 	const dirs = glob.sync(path.resolve(__dirname, "src/Pages/*"));
 	const tsTemplate = fs.readFileSync(path.resolve(__dirname, "src/Templates/loader.ts"), "utf8");
 	
@@ -32,26 +33,6 @@ const pages = (() => {
 			}
 		});
 	});
-	
-	// pages.map(page => {
-	// 	const dir = path.dirname(page);
-	// 	const basename = path.basename(dir)
-	// 	const filename = path.basename(page);
-	// 	const tsFilename = filename.replace("vue", "ts");
-
-	// 	const _ts = tsTemplate.replace("#PagePath", `@/Pages/${basename}/${filename}`);
-	// 	fs.writeFileSync(path.resolve(__dirname, "temp", tsFilename), _ts);
-
-	// 	Object.assign(endpages, {
-	// 		[basename]: {
-	// 			entry: path.resolve(__dirname, "temp", tsFilename), // 메인으로 볼거
-	// 			template: path.resolve(__dirname, "src/Templates/index.html"),	// 탬플릿 html 파일
-	// 			filename: `${basename}.html`, // 컴파일 파일명
-	// 			title: basename, // 타이틀
-	// 			chunks: ["chunk-vendors", "chunk-common", basename]
-	// 		}
-	// 	});
-	// });
 
 	return endpages;
 })();
@@ -68,6 +49,7 @@ module.exports = () => {
 			config.resolve.alias.set("@Components", path.resolve(__dirname, "src/Components"));
 			config.resolve.alias.set("@Defines", path.resolve(__dirname, "src/Defines"));
 			config.resolve.alias.set("@Libs", path.resolve(__dirname, "src/Libs"));
+			config.resolve.alias.set("@API", path.resolve(__dirname, "src/API"));
 			config.resolve.alias.set("@Resources", path.resolve(__dirname, "src/Resources"));
 			config.resolve.alias.set("@Styles", path.resolve(__dirname, "src/Styles"));
 			
@@ -92,6 +74,14 @@ module.exports = () => {
 						enforce: true
 					}
 				}
+			});
+
+			// ts work memory setting
+			config.plugin('fork-ts-checker')
+				.tap(args => {
+					args[0].workers = 2;
+					args[0].memoryLimit = 4096;
+					return args
 			});
 		},
 		/*

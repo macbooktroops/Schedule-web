@@ -4,7 +4,7 @@
 		"module": "es2015",
 		"moduleResolution": "node",
 		"jsx": "preserve",
-    
+		
 		"strict": true,
 		"importHelpers": true,
 		
@@ -32,6 +32,7 @@
 			"@Components/*": [ "./Components/*" ],
 			"@Defines/*": ["./Defines/*"],
 			"@Libs/*": [ "./Libs/*" ],
+			"@API/*": [ "./API/*" ],
 			"@Resources/*": [ "./Resources/*" ],
 			"@Styles/*": [ "./Styles/*" ]
 		},
