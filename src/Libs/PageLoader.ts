@@ -3,12 +3,12 @@ import Vuex from "vuex";
 import VueRouter from "vue-router";
 import $ from "jquery";
 
-import { GlobalRouteInterface } from "@Libs/Interaces";
+import { BaseRouteInterface } from "@Libs/Interaces";
 import { LoadComponents } from "@Components/loader";
 import App from "@Libs/App.vue";
 
 // 패이지 별 vue 객체 로드 구성
-export const LoadPage = (routes: GlobalRouteInterface[]): void => {
+export const LoadPage = (routes: BaseRouteInterface[]): void => {
 	let target = $("body>div");
 	if (target.length !== 0) throw new Error("Cannot load page twice");
 	target = $("<div/>").appendTo($("body"));

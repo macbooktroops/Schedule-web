@@ -1,4 +1,6 @@
 <!-- 버튼 기본 스타일 -->
+<!-- template 안에 들어가는 children 을 slot 위치에 넣는다. -->
+<!-- Content 로 지정하거나 children을 작성하여 slot 을 채운다. -->
 <template>
 	<button
 		type="button"
@@ -7,7 +9,7 @@
 		:name="Name"
 		v-bind:value="Value"
 	>
-	{{Content}}
+		<slot>{{Content}}</slot>
 	</button>
 </template>
 
