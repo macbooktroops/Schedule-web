@@ -1,11 +1,8 @@
 <!-- 입력창 기본 스타일 -->
 <template>
 	<div class="design-input">
-		<input type="text"
-			:id="Id"
-			:name="Name"
-			v-bind:value="Value"
-		/>
+		<label :for="id">{{label}}</label>
+		<input type="text" :id="id" :name="name" v-bind:value="value" />
 	</div>
 </template>
 
@@ -22,26 +19,33 @@ import { Prop } from "vue-property-decorator";
 
 @Component
 export default class DesignInput extends Vue {
-	/** input 태그의 `Id` 프로퍼티와 연동되는 값입니다. */
+	/** input 태그의 `id` 프로퍼티와 연동되는 값입니다. */
 	@Prop({
 		type: String,
 		default: undefined
 	})
-	protected Id?: string;
+	protected id?: string;
 
-	/** input 태그의 `Name` 프로퍼티와 연동되는 값입니다. */
+	/** input 태그의 `name` 프로퍼티와 연동되는 값입니다. */
 	@Prop({
 		type: String,
 		default: undefined
 	})
-	protected Name?: string;
+	protected name?: string;
 
 
-	/** input 태그의 `Value` 프로퍼티와 연동되는 값입니다. */
+	/** input 태그의 `value` 프로퍼티와 연동되는 값입니다. */
 	@Prop({
 		type: String,
 		default: undefined
 	})
-	protected Value?: string;
+	protected value?: string;
+
+	/** label 태그의 `label` 프로퍼티와 연동되는 값입니다. */
+	@Prop({
+		type: String,
+		default: ""
+	})
+	protected label?: string;
 }
 </script>

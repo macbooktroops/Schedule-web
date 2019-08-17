@@ -1,7 +1,8 @@
 <template>
 	<div class="page-login">
-		<label for="test">login</label>
-		<DesignInput id="test" name="test" value="tq" />
+		<DesignInput id="email" name="email" label="이메일" value="" />
+		<DesignInput id="password" name="password" label="패스워드" value="" />
+		<DesignButton>로그인</DesignButton>
 	</div>
 </template>
 

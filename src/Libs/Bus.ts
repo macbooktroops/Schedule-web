@@ -10,7 +10,7 @@ export default class Bus {
 
 		/** Bus 인스턴스를 가져옵니다. */
 		public static get Instance(): Bus {
-				if(!Bus.InnerInstance)	Bus.InnerInstance = new Bus();
+				if (!Bus.InnerInstance)	Bus.InnerInstance = new Bus();
 				return Bus.InnerInstance;
 		}
 
@@ -28,7 +28,7 @@ export default class Bus {
 				this.BusInstance.$once(event, callback);
 				return this;
 		}
-				
+
 		public off(event: string | string[], callback: (...args: any[]) => void): this {
 				this.BusInstance.$off(event, callback);
 				return this;
