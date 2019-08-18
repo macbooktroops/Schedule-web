@@ -6,7 +6,7 @@ import { LoadComponents } from "@Components/loader";
 import App from "@Libs/App.vue";
 
 // 패이지 별 vue 객체 로드 구성
-export const LoadPage = (page: VueConstructor<Vue>): void => {
+export const LoadPage = (Page: VueConstructor<Vue>): void => {
 	let target = $("body>div");
 	if (target.length !== 0) throw new Error("Cannot load page twice");
 	target = $("<div/>").appendTo($("body"));
@@ -20,7 +20,7 @@ export const LoadPage = (page: VueConstructor<Vue>): void => {
 	});
 
 	new Vue({
-		render: (h) => h(App),
+		render: (h) => h("div", [ h(Page) ]),
 		store
 	}).$mount(target.get(0));
 };

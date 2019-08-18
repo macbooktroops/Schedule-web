@@ -1,16 +1,16 @@
-import { AjaxInstance } from "@Libs/Functions";
+import { $ } from "@Libs/Functions";
 // 로그인 액션
 
 /**
  * 일정상세정보를 가져옵니다.
- * @param schedule_id 
+ * @param schedule_id
  */
 export const getSchedulerDetail = (schedule_id: string): void => {
-	AjaxInstance.get(`/v1/schedule/schedule/${schedule_id}/`)
-		.then(response => {
+	$.ajax.get(`/v1/schedule/schedule/${schedule_id}/`)
+		.then((response) => {
 			console.log(response);
 		})
-		.catch(error => {
+		.catch((error) => {
 			console.log(error);
 		});
-}
+};
