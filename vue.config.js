@@ -3,39 +3,71 @@ const path = require("path");
 const fs = require("fs");
 const glob = require("glob");
 const os=require('os');
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 /*
  *	다중 페이지 처리
  */
-const pages = (() => {
-	const endpages = {};
-	const dirs = glob.sync(path.resolve(__dirname, "src/Pages/*"));
-	const tsTemplate = fs.readFileSync(path.resolve(__dirname, "src/Templates/loader.ts"), "utf8");
+// const pages = (() => {
+// 	const endpages = {};
+// 	const dirs = glob.sync(path.resolve(__dirname, "src/Pages/*"));
+// 	const tsTemplate = fs.readFileSync(path.resolve(__dirname, "src/Templates/loader.ts"), "utf8");
 	
-	if(!fs.existsSync(path.resolve(__dirname, "temp"))) {
-		fs.mkdirSync(path.resolve(__dirname, "temp"));
-	}
+// 	if(!fs.existsSync(path.resolve(__dirname, "temp"))) {
+// 		fs.mkdirSync(path.resolve(__dirname, "temp"));
+// 	}
 
-	dirs.map(dir => {
-		const basename = path.basename(dir);
-		const tsFilename = `${basename}.ts`;
-		const _ts = tsTemplate.replace("#RoutesPath", `@/Pages/${basename}/${basename}.route.ts`);
-		fs.writeFileSync(path.resolve(__dirname, "temp", tsFilename), _ts);
+// 	dirs.map(dir => {
+// 		const basename = path.basename(dir);
+// 		const tsFilename = `${basename}.ts`;
+// 		const _ts = tsTemplate.replace("#RoutesPath", `@/Pages/${basename}/${basename}.route.ts`);
+// 		fs.writeFileSync(path.resolve(__dirname, "temp", tsFilename), _ts);
 
-		Object.assign(endpages, {
-			[basename]: {
-				entry: path.resolve(__dirname, "temp", tsFilename), // 메인으로 볼거
-				template: path.resolve(__dirname, "src/Templates/index.html"),	// 탬플릿 html 파일
-				filename: `${basename}.html`, // 컴파일 파일명
-				title: basename, // 타이틀
-				chunks: ["chunk-vendors", "chunk-common", basename]
-			}
-		});
-	});
+// 		Object.assign(endpages, {
+// 			[basename]: {
+// 				entry: path.resolve(__dirname, "temp", tsFilename), // 메인으로 볼거
+// 				template: path.resolve(__dirname, "src/Templates/index.html"),	// 탬플릿 html 파일
+// 				filename: `${basename}.html`, // 컴파일 파일명
+// 				title: basename, // 타이틀
+// 				chunks: ["chunk-vendors", "chunk-common", basename]
+// 			}
+// 		});
+// 	});
 
-	return endpages;
+// 	return endpages;
+// })();
+
+
+const pages = (() => {
+  const pages = glob.sync(path.resolve(__dirname, 'src/Pages/**/*.vue'));
+  const tsTemplate = fs.readFileSync(path.resolve(__dirname, 'src/Templates/loader.ts'), "utf8");
+  
+  if(!fs.existsSync(path.resolve(__dirname, 'temp'))) {
+    fs.mkdirSync(path.resolve(__dirname, 'temp'));
+  }
+  
+  const endpages = {};
+  pages.map(page => {
+    const dir = path.dirname(page);
+    const basename = path.basename(dir)
+    const filename = path.basename(page);
+    const tsFilename = filename.replace('vue', 'ts');
+
+    const _ts = tsTemplate.replace('#PagePath', `@/Pages/${basename}/${filename}`);
+    fs.writeFileSync(path.resolve(__dirname, 'temp', tsFilename), _ts);
+
+    Object.assign(endpages, {
+      [basename]: {
+        entry: path.resolve(__dirname, 'temp', tsFilename), // 메인으로 볼거
+        template: path.resolve(__dirname, 'src/Templates/index.html'),  // 탬플릿 html 파일
+        filename: filename.replace('vue', 'html'), // 컴파일 파일명
+        title: "[일정을 공유하다] 일공" // 타이틀 
+      }
+    });
+  });
+
+  return endpages;
 })();
+
 
 module.exports = () => {
 	// 개발모드에 따른 설정분기처리
@@ -48,8 +80,8 @@ module.exports = () => {
 			config.resolve.alias.set("@", path.resolve(__dirname, "src"));
 			config.resolve.alias.set("@Components", path.resolve(__dirname, "src/Components"));
 			config.resolve.alias.set("@Defines", path.resolve(__dirname, "src/Defines"));
+			config.resolve.alias.set("@Store", path.resolve(__dirname, "src/Store"));
 			config.resolve.alias.set("@Libs", path.resolve(__dirname, "src/Libs"));
-			config.resolve.alias.set("@API", path.resolve(__dirname, "src/API"));
 			config.resolve.alias.set("@Resources", path.resolve(__dirname, "src/Resources"));
 			config.resolve.alias.set("@Styles", path.resolve(__dirname, "src/Styles"));
 			
@@ -79,8 +111,8 @@ module.exports = () => {
 			// ts work memory setting
 			config.plugin('fork-ts-checker')
 				.tap(args => {
-					args[0].workers = 2;
-					args[0].memoryLimit = 4096;
+					args[0].workers = 1;
+					args[0].memoryLimit = 2048;
 					return args
 			});
 		},
@@ -97,8 +129,14 @@ module.exports = () => {
 			compress: true,
 			host: "0.0.0.0",
 			port: 9000,
-			index: "login.html",
-			historyApiFallback: true
+			index: "calendar-detail.html",
+			historyApiFallback: true,
+			proxy: {
+				'v1': {
+					target: 'http://localhost:8080',
+					changeOrigin: true
+				}
+			}
 		},
 
 		/*
@@ -116,6 +154,6 @@ module.exports = () => {
 			}
 		}
 	};
-
+	
 	return config;
 };

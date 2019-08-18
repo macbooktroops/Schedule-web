@@ -13,7 +13,7 @@
 	</button>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .design-button {
 
 }

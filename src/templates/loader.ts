@@ -6,6 +6,6 @@ polyfill();
 // @ts-ignore
 import { LoadPage } from "@Libs/PageLoader";
 // @ts-ignore
-import { Routes } from "#RoutesPath";
+import Page from "#PagePath";
 
-LoadPage(Routes);
+LoadPage(Page);

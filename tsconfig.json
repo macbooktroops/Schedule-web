@@ -32,7 +32,7 @@
 			"@Components/*": [ "./Components/*" ],
 			"@Defines/*": ["./Defines/*"],
 			"@Libs/*": [ "./Libs/*" ],
-			"@API/*": [ "./API/*" ],
+			"@Store/*": [ "./Store/*" ],
 			"@Resources/*": [ "./Resources/*" ],
 			"@Styles/*": [ "./Styles/*" ]
 		},
