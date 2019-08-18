@@ -78,7 +78,7 @@ export default class DesignCheckBox extends Vue {
 		type: String,
 		default: undefined
 	})
-	protected value?: string;	
+	protected value?: string;
 
 	@Prop({
 		type: String,
