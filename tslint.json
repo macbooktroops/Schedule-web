@@ -5,7 +5,8 @@
 	],
 	"linterOptions": {
 		"exclude": [
-			"node_modules/**"
+			"node_modules/**",
+			"src/config.json"
 		]
 	},
 	"rules": {
@@ -20,6 +21,7 @@
 		"trailing-comma": false,
 		"eofline": false,
 		"curly": false,
-		"no-console": [true, "warning"]
+		"no-console": [true, "warning"],
+		"variable-name": false
 	}
 }
