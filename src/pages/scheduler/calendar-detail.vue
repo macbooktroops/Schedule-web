@@ -51,12 +51,12 @@
 </style>
 
 <script lang="ts">
-import Vue from "vue";
 import Component from "vue-class-component";
 import { Prop } from "vue-property-decorator";
+import ComponentBase from "@Components/Base";
 
 @Component
-export default class PageCalendarDetail extends Vue {
+export default class PageCalendarDetail extends ComponentBase {
 	@Prop({
 		type: String,
 		default: "테스트타이틀"
