@@ -19,12 +19,12 @@
 </style>
 
 <script lang="ts">
-import Vue from "vue";
 import Component from "vue-class-component";
 import { Prop } from "vue-property-decorator";
+import ComponentBase from "@Components/Base";
 
 @Component
-export default class DesignBox extends Vue {
+export default class DesignBox extends ComponentBase {
 	@Prop({})
 	protected title?: string;
 	@Prop({})

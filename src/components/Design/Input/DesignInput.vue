@@ -13,12 +13,12 @@
 </style>
 
 <script lang="ts">
-import Vue from "vue";
 import Component from "vue-class-component";
 import { Prop } from "vue-property-decorator";
+import ComponentBase from "@Components/Base";
 
 @Component
-export default class DesignInput extends Vue {
+export default class DesignInput extends ComponentBase {
 	/** input 태그의 `id` 프로퍼티와 연동되는 값입니다. */
 	@Prop({
 		type: String,

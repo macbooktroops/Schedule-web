@@ -56,12 +56,12 @@
 </style>
 
 <script lang="ts">
-import Vue from "vue";
 import Component from "vue-class-component";
 import { Prop } from "vue-property-decorator";
+import ComponentBase from "@Components/Base";
 
 @Component
-export default class DesignCheckBox extends Vue {
+export default class DesignCheckBox extends ComponentBase {
 	@Prop({
 		type: String,
 		default: undefined
