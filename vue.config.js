@@ -41,8 +41,8 @@ const pages = (() => {
   const pages = glob.sync(path.resolve(__dirname, 'src/Pages/**/*.vue'));
   const tsTemplate = fs.readFileSync(path.resolve(__dirname, 'src/Templates/loader.ts'), "utf8");
   
-  if(!fs.existsSync(path.resolve(__dirname, 'temp'))) {
-    fs.mkdirSync(path.resolve(__dirname, 'temp'));
+  if(!fs.existsSync(path.resolve(__dirname, 'Temp'))) {
+    fs.mkdirSync(path.resolve(__dirname, 'Temp'));
   }
   
   const endpages = {};
@@ -53,11 +53,11 @@ const pages = (() => {
     const tsFilename = filename.replace('vue', 'ts');
 
     const _ts = tsTemplate.replace('#PagePath', `@/Pages/${basename}/${filename}`);
-    fs.writeFileSync(path.resolve(__dirname, 'temp', tsFilename), _ts);
+    fs.writeFileSync(path.resolve(__dirname, 'Temp', tsFilename), _ts);
 
     Object.assign(endpages, {
       [basename]: {
-        entry: path.resolve(__dirname, 'temp', tsFilename), // 메인으로 볼거
+        entry: path.resolve(__dirname, 'Temp', tsFilename), // 메인으로 볼거
         template: path.resolve(__dirname, 'src/Templates/index.html'),  // 탬플릿 html 파일
         filename: filename.replace('vue', 'html'), // 컴파일 파일명
         title: "[일정을 공유하다] 일공" // 타이틀 

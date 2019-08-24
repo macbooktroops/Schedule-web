@@ -1,5 +1,5 @@
 <template>
-	<header>
+	<header class="design-header">
 			<label for="title">
 				<slot>{{title}}</slot>
 			</label>
@@ -8,7 +8,7 @@
 
 
 <style lang="scss" scoped>
-header {
+.design-header {
 	width: 100%;
 	height: 56px;
 
