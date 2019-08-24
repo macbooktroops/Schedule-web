@@ -3,7 +3,6 @@ import Vuex from "vuex";
 import $ from "jquery";
 
 import { LoadComponents } from "@Components/Loader";
-import ScheduleModule from "@Store/ScheduleModule";
 
 // 패이지 별 vue 객체 로드 구성
 export const LoadPage = (Page: VueConstructor<Vue>): void => {
@@ -16,9 +15,6 @@ export const LoadPage = (Page: VueConstructor<Vue>): void => {
 	LoadComponents(Vue);
 	// store 설정
 	const store = new Vuex.Store({
-		modules: [
-			ScheduleModule
-		],
 		strict: true
 	});
 

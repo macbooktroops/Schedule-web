@@ -9,14 +9,14 @@ export const $ = {
 		responseType: "json",
 		headers: { "X-Requested-With": "XMLHttpRequest" },
 		transformRequest: [
-			function (data, headers) {
+			function( data, headers ) {
 				console.log("[DEBUG]transformRequest data:", data);
 				console.log("[DEBUG]transformRequest headers:", headers);
 				return data;
 			}
 		],
 		transformResponse: [
-			function (data) {
+			function( data ) {
 				console.log("[DEBUG]transformResponse data:", data);
 				return data;
 			}
