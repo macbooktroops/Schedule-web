@@ -2,47 +2,16 @@
 const path = require("path");
 const fs = require("fs");
 const glob = require("glob");
-const os=require('os');
 
 /*
  *	다중 페이지 처리
  */
-// const pages = (() => {
-// 	const endpages = {};
-// 	const dirs = glob.sync(path.resolve(__dirname, "src/Pages/*"));
-// 	const tsTemplate = fs.readFileSync(path.resolve(__dirname, "src/Templates/loader.ts"), "utf8");
-	
-// 	if(!fs.existsSync(path.resolve(__dirname, "temp"))) {
-// 		fs.mkdirSync(path.resolve(__dirname, "temp"));
-// 	}
-
-// 	dirs.map(dir => {
-// 		const basename = path.basename(dir);
-// 		const tsFilename = `${basename}.ts`;
-// 		const _ts = tsTemplate.replace("#RoutesPath", `@/Pages/${basename}/${basename}.route.ts`);
-// 		fs.writeFileSync(path.resolve(__dirname, "temp", tsFilename), _ts);
-
-// 		Object.assign(endpages, {
-// 			[basename]: {
-// 				entry: path.resolve(__dirname, "temp", tsFilename), // 메인으로 볼거
-// 				template: path.resolve(__dirname, "src/Templates/index.html"),	// 탬플릿 html 파일
-// 				filename: `${basename}.html`, // 컴파일 파일명
-// 				title: basename, // 타이틀
-// 				chunks: ["chunk-vendors", "chunk-common", basename]
-// 			}
-// 		});
-// 	});
-
-// 	return endpages;
-// })();
-
-
 const pages = (() => {
-  const pages = glob.sync(path.resolve(__dirname, 'src/Pages/**/*.vue'));
-  const tsTemplate = fs.readFileSync(path.resolve(__dirname, 'src/Templates/loader.ts'), "utf8");
+  const pages = glob.sync(path.resolve(__dirname, "src/Pages/**/*.vue"));
+  const tsTemplate = fs.readFileSync(path.resolve(__dirname, "src/Templates/Loader.ts"), "utf8");
   
-  if(!fs.existsSync(path.resolve(__dirname, 'Temp'))) {
-    fs.mkdirSync(path.resolve(__dirname, 'Temp'));
+  if(!fs.existsSync(path.resolve(__dirname, "Temp"))) {
+    fs.mkdirSync(path.resolve(__dirname, "Temp"));
   }
   
   const endpages = {};
@@ -50,17 +19,18 @@ const pages = (() => {
     const dir = path.dirname(page);
     const basename = path.basename(dir)
     const filename = path.basename(page);
-    const tsFilename = filename.replace('vue', 'ts');
+    const tsFilename = filename.replace("vue", "ts");
 
-    const _ts = tsTemplate.replace('#PagePath', `@/Pages/${basename}/${filename}`);
-    fs.writeFileSync(path.resolve(__dirname, 'Temp', tsFilename), _ts);
+    const _ts = tsTemplate.replace("#PagePath", `@/Pages/${basename}/${filename}`);
+    fs.writeFileSync(path.resolve(__dirname, "Temp", tsFilename), _ts);
 
     Object.assign(endpages, {
       [basename]: {
-        entry: path.resolve(__dirname, 'Temp', tsFilename), // 메인으로 볼거
-        template: path.resolve(__dirname, 'src/Templates/index.html'),  // 탬플릿 html 파일
-        filename: filename.replace('vue', 'html'), // 컴파일 파일명
-        title: "[일정을 공유하다] 일공" // 타이틀 
+        entry: path.resolve(__dirname, "Temp", tsFilename), // 메인으로 볼거
+				template: path.resolve(__dirname, "src/Templates/index.html"),  // 탬플릿 html 파일
+				favicon: path.resolve(__dirname, "src/Templates/favicon.ico"),
+        filename: filename.replace("vue", "html"), // 컴파일 파일명
+        title: "일공" // 타이틀 
       }
     });
   });
@@ -70,6 +40,12 @@ const pages = (() => {
 
 
 module.exports = () => {
+	// 옵션 파싱
+	const options = {};
+	process.argv.map((argv, i) => {
+		if ( /^(--)(.*)/.test(argv) ) options[argv.replace("--", "")] = process.argv[i + 1];
+	});
+
 	// 개발모드에 따른 설정분기처리
 	const publicPath = (process.env.NODE_ENV === "production") ? "/schedule-web" : "";
 	const config = {
@@ -85,7 +61,6 @@ module.exports = () => {
 			config.resolve.alias.set("@Resources", path.resolve(__dirname, "src/Resources"));
 			config.resolve.alias.set("@Styles", path.resolve(__dirname, "src/Styles"));
 			
-			// config.resolve.extensions.push("", ".vue", ".ts");
 			// 공통으로 사용하는 라이브러리를 외부 파일로 분리
 			config.optimization.splitChunks({
 				cacheGroups: {
@@ -109,7 +84,7 @@ module.exports = () => {
 			});
 
 			// ts work memory setting
-			config.plugin('fork-ts-checker')
+			config.plugin("fork-ts-checker")
 				.tap(args => {
 					args[0].workers = 1;
 					args[0].memoryLimit = 2048;
@@ -130,10 +105,11 @@ module.exports = () => {
 			host: "0.0.0.0",
 			port: 9000,
 			index: "calendar-detail.html",
+			publicPath,
 			historyApiFallback: true,
 			proxy: {
-				'v1': {
-					target: 'http://localhost:8080',
+				"v1": {
+					target: "http://localhost:8080",
 					changeOrigin: true
 				}
 			}
@@ -155,5 +131,13 @@ module.exports = () => {
 		}
 	};
 	
+	(async() => {
+		const JSONConfig = {
+			baseURL: (options.mode === "development") ? "" : ""
+		};
+
+		fs.writeFileSync(path.resolve(__dirname, "src/config.json"), JSON.stringify(JSONConfig));
+	})();
+
 	return config;
 };

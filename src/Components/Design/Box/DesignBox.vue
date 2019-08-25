@@ -5,7 +5,7 @@
 	</div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .design-box {
 	> h2 {
 		font-size: 14px;

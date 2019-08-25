@@ -7,14 +7,17 @@
 </template>
 
 
-<style lang="scss" scoped>
+<style lang="scss">
 .design-header {
+	display: flex;
+	align-items: center;
 	width: 100%;
 	height: 56px;
+	padding-left: 12px;
 
 	label[for="title"] {
-		font-size: 20px;
-		color: #7165cd;
+		font-size: 24px;
+		color: $calendar-detail-color;
 	}
 }
 </style>

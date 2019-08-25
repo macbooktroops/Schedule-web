@@ -1,17 +1,18 @@
 <template>
 	<div class="page-calendar-detail">
 		<DesignHeader title="상세보기" />
-		<section>
-			<article>
+		<section class="calendar-section">
+			<article class="calendar-info">
 				<div>
-					<h1>{{title}}</h1>
+					<h1>{{DetailInfo.title}}</h1>
+					<h3>{{DetailInfo.subtitle}}</h3>
 				</div>
 				<div>
-					<span>{{start_time}}</span>
-					<span></span>
+					<span>{{DetailInfo.start_time}}</span>
+					<span>{{DetailInfo.end_time}}</span>
 				</div>
 			</article>
-			<article>
+			<article class="calendar-box">
 				<DesignBox title="멤버" small="5명">	
 				</DesignBox>
 				<DesignBox title="메모">
@@ -27,23 +28,44 @@
 .page-calendar-detail {
 	width: 100%;
 	height: 100%;
-	background: #F9F9F9;
-	> section {
-		> article:nth-child(1) {
-			height: 30%;
-			> div:nth-child(1) {
-				> h1 {
-					font-size: 24px;
+	background-color: $calendar-detail-background-color;
+	section.calendar-section {
+		article.calendar-info {
+				margin: 24px 0;
+				div:nth-child(1) {
+				* {
+					margin: 0;
+				}
+				
+				h1 {
+					font-size: 28px;
 					font-weight: bold;
-					color: #000000;
+					color: $calendar-info-font-color;
+					line-height: 150%;
+				}
+
+				h3 {
+					font-size: 20px;
+					font-weight: 500;
+					color: $calendar-detail-color;
+				}
+			}
+			div + div {
+				margin-top: 28px;
+			}
+			/* 시간 */
+			div:nth-child(2) {
+				* {
+					display: block;
+					font-size: 18px;
 				}
 			}
 		}
-		> article:nth-child(2) {
-			background: #FFFFFF;
-			> span {
-				font-size: 14px;
-				color: #5c4b69;
+		article.calendar-box {
+			background: $calendar-detail-background-color;
+			span {
+				font-size: 18px;
+				color: $calendar-box-font-color;
 			}
 		}
 	}
@@ -55,36 +77,26 @@ import Component from "vue-class-component";
 import { Prop } from "vue-property-decorator";
 import ComponentBase from "@Components/Base";
 
-@Component
-export default class PageCalendarDetail extends ComponentBase {
-	@Prop({
-		type: String,
-		default: "테스트타이틀"
-	})
-	protected title!: string;
+import Data from "@/detail.json";
 
-	/** 시작시간 */
-	@Prop({
-		type: String,
-		default: "2019-06-22T17:30:00Z"
-	})
-	protected start_time?: string;
+/** 스케줄러 상세정보 인터페이스 */
+export interface ScheduleDetailInfo {
+	id: number;
+	title: string | null;
+	subtitle: string | null;
+	state: number;
+	start_time: string | null;
+	end_time: string | null;
+	latitude: number;
+	longitude: number;
+	content: string | null;
+	registrant: number;
+	participants: number[];
+	arribal_member: number[];
 }
 
-/*
-"id": Int,
-"title": String,
-"state": Int,
-"start_time": String(DateTime, format YYYY-MM-DDTHH:MM:SSZ), ex) "2019-06-22T17:30:00Z"
-"latitude": Float,
-"longitude": Float,
-"content": String,
-"registrant": Int,
-"participants": [
-	Int # participant user_id
-],
-"arrival_member": [
-	Int # participant user_id
-]
- */
+@Component({})
+export default class PageCalendarDetail extends ComponentBase {
+	private DetailInfo: ScheduleDetailInfo =  Data;
+}
 </script>

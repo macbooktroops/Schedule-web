@@ -1,5 +1,4 @@
 import Vue, { VueConstructor } from "vue";
-import Vuex from "vuex";
 import $ from "jquery";
 
 import { LoadComponents } from "@Components/Loader";
@@ -10,16 +9,9 @@ export const LoadPage = (Page: VueConstructor<Vue>): void => {
 	if (target.length !== 0) throw new Error("Cannot load page twice");
 	target = $("<div/>").appendTo($("body"));
 
-	Vue.use(Vuex);
-
 	LoadComponents(Vue);
-	// store 설정
-	const store = new Vuex.Store({
-		strict: true
-	});
 
 	new Vue({
-		render: (h) => h("div", [ h(Page) ]),
-		store
+		render: (h) => h("div", [ h(Page) ])
 	}).$mount(target.get(0));
 };

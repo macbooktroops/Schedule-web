@@ -4,21 +4,17 @@
 	"private": true,
 	"scripts": {
 		"clean": "rimraf ./dist ./temp",
-		"serve": "node ./configuration.js --mode development && vue-cli-service serve --mode development",
-		"build": "node ./configuration.js --mode production && vue-cli-service build --mode production",
-		"lint": "vue-cli-service lint",
-		"configuration": "node ./configuration.js --mode development"
+		"serve": "vue-cli-service serve --mode development",
+		"build": "vue-cli-service build --mode production",
+		"lint": "vue-cli-service lint"
 	},
 	"dependencies": {
-		"@babel/polyfill": "^7.4.4",
 		"axios": "^0.19.0",
 		"core-js": "^2.6.5",
-		"es6-promise": "^4.2.8",
 		"jquery": "^3.4.1",
 		"vue": "^2.6.10",
 		"vue-class-component": "^7.0.2",
-		"vue-property-decorator": "^8.1.0",
-		"vuex": "^3.1.1"
+		"vue-property-decorator": "^8.1.0"
 	},
 	"devDependencies": {
 		"@types/jquery": "^3.3.31",
