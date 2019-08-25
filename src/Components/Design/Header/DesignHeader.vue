@@ -13,10 +13,9 @@
 	align-items: center;
 	width: 100%;
 	height: 56px;
-	padding-left: 12px;
-
+	
 	label[for="title"] {
-		font-size: 24px;
+		font-size: 20px;
 		color: $calendar-detail-color;
 	}
 }

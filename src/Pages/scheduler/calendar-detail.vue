@@ -8,8 +8,8 @@
 					<h3>{{DetailInfo.subtitle}}</h3>
 				</div>
 				<div>
-					<span>{{DetailInfo.start_time}}</span>
-					<span>{{DetailInfo.end_time}}</span>
+					<span>{{DetailInfo.start_time}}부터</span>
+					<span>{{DetailInfo.end_time}}까지</span>
 				</div>
 			</article>
 			<article class="calendar-box">
@@ -31,33 +31,33 @@
 	background-color: $calendar-detail-background-color;
 	section.calendar-section {
 		article.calendar-info {
-				margin: 24px 0;
 				div:nth-child(1) {
 				* {
 					margin: 0;
 				}
 				
 				h1 {
-					font-size: 28px;
+					font-size: 24px;
 					font-weight: bold;
-					color: $calendar-info-font-color;
-					line-height: 150%;
+					color: $calendar-detail-block-color;
+					line-height: 130%;
 				}
 
 				h3 {
-					font-size: 20px;
+					font-size: 18px;
 					font-weight: 500;
 					color: $calendar-detail-color;
 				}
 			}
 			div + div {
-				margin-top: 28px;
+				margin-top: 18px;
 			}
 			/* 시간 */
 			div:nth-child(2) {
 				* {
 					display: block;
-					font-size: 18px;
+					font-size: 16px;
+					color: #5c4b69;
 				}
 			}
 		}
@@ -65,7 +65,7 @@
 			background: $calendar-detail-background-color;
 			span {
 				font-size: 18px;
-				color: $calendar-box-font-color;
+				color: $calendar-box-color;
 			}
 		}
 	}

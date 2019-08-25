@@ -9,10 +9,10 @@
 .design-box {
 	> h2 {
 		font-size: 14px;
-		color: #000000;
+		color: $calendar-detail-block-color;
 		> small {
 			font-size: 12px;
-  		color: #7165cd;
+  		color: $calendar-detail-color;
 		}
 	}
 }
