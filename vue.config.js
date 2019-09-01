@@ -47,7 +47,8 @@ module.exports = () => {
 	});
 
 	// 개발모드에 따른 설정분기처리
-	const publicPath = (process.env.NODE_ENV === "production") ? "/schedule-web" : "";
+	// const publicPath = (process.env.NODE_ENV === "production") ? "/schedule-web" : "";
+	const publicPath = "";
 	const config = {
 		publicPath, // base url 설정
 		filenameHashing: false, // 컴파일된 파일명에 해쉬 추가 여부

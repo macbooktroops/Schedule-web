@@ -1,0 +1,11 @@
+/** 폰트 사이즈를 지정합니다. */
+@function fontsize($target: 12px, $base: 12px, $current: $design-font-size) {
+	@return $current * $target / $base;
+}
+
+/** 모바일 기준으로 맞춥니다. */
+@mixin mobile ($width: $mobile-width){
+	@media screen and (max-width: $width) {
+		@content
+	}
+}

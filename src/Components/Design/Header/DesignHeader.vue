@@ -1,8 +1,8 @@
 <template>
 	<header class="design-header">
-			<label for="title">
-				<slot>{{title}}</slot>
-			</label>
+		<label for="title" class="design-header-label">
+			<slot name="title">{{title}}</slot>
+		</label>
 	</header>
 </template>
 
@@ -10,13 +10,13 @@
 <style lang="scss">
 .design-header {
 	display: flex;
+	justify-content: flex-start;
 	align-items: center;
 	width: 100%;
 	height: 56px;
-	
-	label[for="title"] {
-		font-size: 20px;
-		color: $calendar-detail-color;
+	.design-header-label {
+		font-size: fontsize(20px);
+		color: $design-font-color;
 	}
 }
 </style>

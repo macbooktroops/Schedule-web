@@ -1,18 +1,27 @@
 <template>
 	<div class="design-box">
-		<h2>{{title}}<small>{{small}}</small></h2>
-		<slot name="content"></slot>
+		<label class="design-box-label">
+			<slot name="label"></slot>
+		</label>
+		<div class="design-box-content">
+			<slot name="content"></slot>
+		</div>
 	</div>
 </template>
 
 <style lang="scss">
 .design-box {
-	> h2 {
-		font-size: 14px;
-		color: $calendar-detail-block-color;
-		> small {
-			font-size: 12px;
-  		color: $calendar-detail-color;
+	@include mobile(320px) {
+		.design-box-label {
+			font-size: fontsize(14px);
+			color: $design-font-deep-color;
+		}
+		.design-box-content {
+			display: flex;
+			font-size: fontsize(14px);
+			color: $design-font-light-color;
+			justify-content: top;
+			align-items: center;
 		}
 	}
 }
@@ -27,7 +36,5 @@ import ComponentBase from "@Components/Base";
 export default class DesignBox extends ComponentBase {
 	@Prop({})
 	protected title?: string;
-	@Prop({})
-	protected small?: string;
 }
 </script>

@@ -8,8 +8,8 @@
 					<h3>{{DetailInfo.subtitle}}</h3>
 				</div>
 				<div>
-					<span>{{DetailInfo.start_time}}부터</span>
-					<span>{{DetailInfo.end_time}}까지</span>
+					<span>{{StartDate}}부터</span>
+					<span>{{EndDate}}까지</span>
 				</div>
 			</article>
 			<article class="calendar-box">
@@ -28,7 +28,7 @@
 .page-calendar-detail {
 	width: 100%;
 	height: 100%;
-	background-color: $calendar-detail-background-color;
+	background-color: $design-background-color;
 	section.calendar-section {
 		article.calendar-info {
 				div:nth-child(1) {
@@ -37,16 +37,16 @@
 				}
 				
 				h1 {
-					font-size: 24px;
+					font-size: fontsize(24px);
 					font-weight: bold;
-					color: $calendar-detail-block-color;
+					color: $design-font-deep-color;
 					line-height: 130%;
 				}
 
 				h3 {
-					font-size: 18px;
-					font-weight: 500;
-					color: $calendar-detail-color;
+					font-size: fontsize(18px);
+					font-weight: $design-font-weight;
+					color: $design-font-color;
 				}
 			}
 			div + div {
@@ -56,16 +56,16 @@
 			div:nth-child(2) {
 				* {
 					display: block;
-					font-size: 16px;
-					color: #5c4b69;
+					font-size: fontsize(16px);
+					color: $design-box-font-color;
 				}
 			}
 		}
 		article.calendar-box {
-			background: $calendar-detail-background-color;
+			background: $design-background-color;
 			span {
-				font-size: 18px;
-				color: $calendar-box-color;
+				font-size: fontsize(18px);
+				color: $design-box-font-color;
 			}
 		}
 	}
@@ -98,5 +98,17 @@ export interface ScheduleDetailInfo {
 @Component({})
 export default class PageCalendarDetail extends ComponentBase {
 	private DetailInfo: ScheduleDetailInfo =  Data;
+
+	private get StartDate() {
+		return this.FormatString(this.DetailInfo.start_time as string);
+	}
+
+	private get EndDate() {
+		return this.FormatString(this.DetailInfo.end_time as string);
+	}
+
+	private FormatString(DateStr: string): string {
+		return new Date(DateStr).FormatString("YYYY년 MM월 DD일 HH시");
+	}
 }
 </script>
