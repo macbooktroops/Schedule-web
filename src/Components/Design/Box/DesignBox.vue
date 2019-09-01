@@ -11,6 +11,7 @@
 
 <style lang="scss">
 .design-box {
+	background-color: $design-box-background-color;
 	@include mobile(320px) {
 		.design-box-label {
 			font-size: fontsize(14px);

@@ -13,7 +13,17 @@
 				</div>
 			</article>
 			<article class="calendar-box">
-				<DesignBox title="멤버" small="5명">	
+				<DesignBox>
+					<template v-slot:label>
+						맴버<small>{{DetailInfo.arribal_member.length}}명</small>
+					</template>
+					<template v-slot:content>
+						<div class="member-list">
+							<template v-for="member in DetailInfo.arribal_member">
+								<img :title="member" :key="member" />
+							</template>
+						</div>
+					</template>
 				</DesignBox>
 				<DesignBox title="메모">
 				</DesignBox>
@@ -108,7 +118,7 @@ export default class PageCalendarDetail extends ComponentBase {
 	}
 
 	private FormatString(DateStr: string): string {
-		return new Date(DateStr).FormatString("YYYY년 MM월 DD일 HH시");
+		return new Date(DateStr.substring(0, DateStr.lastIndexOf("Z"))).FormatString("YYYY년 MM월 DD일 (E) A HH12시");
 	}
 }
 </script>

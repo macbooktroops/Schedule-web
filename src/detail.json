@@ -1,18 +1,18 @@
 {
 	"id": 0,
-	"title": "무지개여섯공선전하기",
-	"subtitle": "같이할사람모음",
+	"title": "졸업여행",
+	"subtitle": "제주도",
 	"state": 200,
-	"start_time": "2019-06-22T17:30:00Z",
-	"end_time": "2019-06-22T17:30:00Z",
+	"start_time": "2019-12-17T11:30:00Z",
+	"end_time": "2019-12-19T17:30:00Z",
 	"latitude": 0,
 	"longitude": 0,
-	"content": "아아 여기는 아마 메모일 것이여",
+	"content": "친구들과 오랜만에 떠나는 졸업 여행 그래서 신나는데 여긴 이렇게 두줄밖에 못쓰짐 메렁",
 	"registrant": 0,
 	"participants": [
 		1000
 	],
 	"arribal_member": [
-		1001
+		1001, 1002, 1003, 1004, 1005
 	]
 }
