@@ -25,7 +25,8 @@
 		"baseUrl": "./src",
 		"types": [
 			"webpack-env",
-			"jquery"
+			"jquery",
+			"googlemaps"
 		],
 		"paths": {
 			"@/*": [ "./*" ],

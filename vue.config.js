@@ -57,7 +57,6 @@ module.exports = () => {
 			config.resolve.alias.set("@", path.resolve(__dirname, "src"));
 			config.resolve.alias.set("@Components", path.resolve(__dirname, "src/Components"));
 			config.resolve.alias.set("@Defines", path.resolve(__dirname, "src/Defines"));
-			config.resolve.alias.set("@Store", path.resolve(__dirname, "src/Store"));
 			config.resolve.alias.set("@Libs", path.resolve(__dirname, "src/Libs"));
 			config.resolve.alias.set("@Resources", path.resolve(__dirname, "src/Resources"));
 			config.resolve.alias.set("@Styles", path.resolve(__dirname, "src/Styles"));

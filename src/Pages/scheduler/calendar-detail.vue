@@ -13,21 +13,38 @@
 				</div>
 			</article>
 			<article class="calendar-box">
-				<DesignBox>
+				<DesignBox class="member-box">
 					<template v-slot:label>
 						맴버<small>{{DetailInfo.arribal_member.length}}명</small>
 					</template>
 					<template v-slot:content>
 						<div class="member-list">
-							<template v-for="member in DetailInfo.arribal_member">
-								<img :title="member" :key="member" />
-							</template>
+							<div
+								class="member-item"
+								:key="member"
+								v-for="member in DetailInfo.arribal_member"
+							>
+								<img :src="GetImage(member)" :title="member"/>
+								<span>{{member}}</span>
+							</div>
 						</div>
 					</template>
 				</DesignBox>
-				<DesignBox title="메모">
+				<DesignBox class="memo-box">
+					<template v-slot:label>
+						메모
+					</template>
+					<template v-slot:content>
+						{{DetailInfo.content}}
+					</template>
 				</DesignBox>
-				<DesignBox title="지도">	
+				<DesignBox class="map-box">
+					<template v-slot:label>
+					지도
+					</template>
+					<template v-slot:content>
+						<div class="google-map" ref="GoogleMapRef"></div>
+					</template>
 				</DesignBox>
 			</article>
 		</section>
@@ -77,6 +94,29 @@
 				font-size: fontsize(18px);
 				color: $design-box-font-color;
 			}
+
+			.member-box {
+				.member-list {
+					.member-item {
+						display: inline-flex;
+						justify-content: center;
+						align-items: center;
+						flex: 1 0 0 auto;
+						flex-direction: column;
+						> img {
+							width: 50px;
+							height: 50px;
+							border-radius: 50px;
+						}
+					}
+				}
+			}
+			.map-box {
+				.google-map {
+					width: 100%;
+					height: 300px;
+				}
+			}
 		}
 	}
 }
@@ -86,6 +126,8 @@
 import Component from "vue-class-component";
 import { Prop } from "vue-property-decorator";
 import ComponentBase from "@Components/Base";
+
+import GoogleMap from "@Libs/Google/Map";
 
 import Data from "@/detail.json";
 
@@ -109,6 +151,13 @@ export interface ScheduleDetailInfo {
 export default class PageCalendarDetail extends ComponentBase {
 	private DetailInfo: ScheduleDetailInfo =  Data;
 
+	private mounted() {
+		new GoogleMap(this.$refs.GoogleMapRef as HTMLDivElement, {
+			center: {lat: -34.397, lng: 150.644},
+			zoom: 8
+		});
+	}
+
 	private get StartDate() {
 		return this.FormatString(this.DetailInfo.start_time as string);
 	}
@@ -119,6 +168,10 @@ export default class PageCalendarDetail extends ComponentBase {
 
 	private FormatString(DateStr: string): string {
 		return new Date(DateStr.substring(0, DateStr.lastIndexOf("Z"))).FormatString("YYYY년 MM월 DD일 (E) A HH12시");
+	}
+
+	private GetImage(Id: number) {
+		return require(`@Resources/${Id}.png`);
 	}
 }
 </script>
