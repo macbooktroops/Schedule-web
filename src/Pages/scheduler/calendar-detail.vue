@@ -24,7 +24,7 @@
 								:key="member"
 								v-for="member in DetailInfo.arribal_member"
 							>
-								<img :src="GetImage(member)" :title="member"/>
+								<img :src="getImageResource(member, 'png')" :title="member"/>
 								<span>{{member}}</span>
 							</div>
 						</div>
@@ -92,17 +92,17 @@
 				font-size: fontsize(18px);
 				color: $design-box-font-color;
 			}
+			.design-box-label small{
+				margin-left: 3px;
+				font-size: fontsize($design-font-size);
+				color: $design-font-color;
+			}
 			.member-box {
 				.member-list {
 					display: flex;
 					flex-wrap: nowrap;
 					flex: 1 auto;
 					.member-item {
-						// display: inline-flex;
-						// justify-content: center;
-						// align-items: center;
-						// flex: 1 0 0 auto;
-						// flex-direction: column;
 						padding-right: 8px;
 						> img {
 							width: 50px;
@@ -153,10 +153,11 @@ export default class PageCalendarDetail extends ComponentBase {
 	private DetailInfo: ScheduleDetailInfo =  Data;
 
 	private mounted() {
-		new GoogleMap(this.$refs.GoogleMapRef as HTMLDivElement, {
+		const map = new GoogleMap(this.$refs.GoogleMapRef as HTMLDivElement, {
 			center: {lat: -34.397, lng: 150.644},
 			zoom: 8
 		});
+		console.log(map);
 	}
 
 	private get StartDate() {
@@ -165,14 +166,6 @@ export default class PageCalendarDetail extends ComponentBase {
 
 	private get EndDate() {
 		return this.FormatString(this.DetailInfo.end_time as string);
-	}
-
-	private FormatString(DateStr: string): string {
-		return new Date(DateStr.substring(0, DateStr.lastIndexOf("Z"))).FormatString("YYYY년 MM월 DD일 (E) A HH12시");
-	}
-
-	private GetImage(Id: number) {
-		return require(`@Resources/${Id}.png`);
 	}
 }
 </script>
