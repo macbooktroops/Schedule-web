@@ -14,6 +14,7 @@
 	align-items: center;
 	width: 100%;
 	height: 56px;
+	padding-left: $design-box-padding;
 	.design-header-label {
 		font-size: fontsize(20px);
 		color: $design-font-color;

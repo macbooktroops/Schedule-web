@@ -1,3 +1,4 @@
+/** 구글맵 */
 export default class GoogleMap {
 	private Map!: google.maps.Map;
 	constructor(ref: HTMLElement, options: google.maps.MapOptions) {

@@ -13,7 +13,7 @@
 				</div>
 			</article>
 			<article class="calendar-box">
-				<DesignBox class="member-box">
+				<DesignBox class="member-box" overflow="auto">
 					<template v-slot:label>
 						맴버<small>{{DetailInfo.arribal_member.length}}명</small>
 					</template>
@@ -58,18 +58,18 @@
 	background-color: $design-background-color;
 	section.calendar-section {
 		article.calendar-info {
-				div:nth-child(1) {
+			padding: 0 $design-box-padding;
+			padding-bottom: $design-box-padding;
+			div:nth-child(1) {
 				* {
 					margin: 0;
 				}
-				
 				h1 {
 					font-size: fontsize(24px);
 					font-weight: bold;
 					color: $design-font-deep-color;
 					line-height: 130%;
 				}
-
 				h3 {
 					font-size: fontsize(18px);
 					font-weight: $design-font-weight;
@@ -80,12 +80,10 @@
 				margin-top: 18px;
 			}
 			/* 시간 */
-			div:nth-child(2) {
-				* {
+			div:nth-child(2) * {
 					display: block;
 					font-size: fontsize(16px);
 					color: $design-box-font-color;
-				}
 			}
 		}
 		article.calendar-box {
@@ -94,15 +92,18 @@
 				font-size: fontsize(18px);
 				color: $design-box-font-color;
 			}
-
 			.member-box {
 				.member-list {
+					display: flex;
+					flex-wrap: nowrap;
+					flex: 1 auto;
 					.member-item {
-						display: inline-flex;
-						justify-content: center;
-						align-items: center;
-						flex: 1 0 0 auto;
-						flex-direction: column;
+						// display: inline-flex;
+						// justify-content: center;
+						// align-items: center;
+						// flex: 1 0 0 auto;
+						// flex-direction: column;
+						padding-right: 8px;
 						> img {
 							width: 50px;
 							height: 50px;
